@@ -5,7 +5,7 @@ export const Header = () => {
   return (
     <header className="">
   <div className="mx-auto flex justify-between h-24 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-    <Link className=" text-primary text-4xl font-bold" href="#">
+    <Link className=" text-primary text-4xl font-bold" href="/">
       Tasking.
       
     </Link>

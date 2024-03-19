@@ -1,15 +1,20 @@
-import AddTask from "@/components/dashboard/AddTask"
-import { Tasks } from "@/components/dashboard/Tasks"
-import { TopSection } from "@/components/dashboard/TopSection"
+import { Header } from "@/components/Header";
+import AddTask from "@/components/dashboard/AddTask";
+import { Tasks } from "@/components/dashboard/Tasks";
+import { TopSection } from "@/components/dashboard/TopSection";
 
 const DashboardPage = () => {
   return (
-    <div className="flex justify-center flex-col items-center w-[400px] m-auto">
-      <TopSection/>
-     <AddTask/>
-     <Tasks/>
-    </div>
-  )
-}
+    <>
+      <Header />
 
-export default DashboardPage
+      <div className="flex justify-center flex-col items-center w-[400px] m-auto">
+        <TopSection />
+        <AddTask />
+        <Tasks />
+      </div>
+    </>
+  );
+};
+
+export default DashboardPage;
