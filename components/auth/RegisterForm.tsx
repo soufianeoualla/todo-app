@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -15,8 +14,15 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { RegisterSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState, useTransition } from "react";
+import { register } from "@/actions/register";
+import { FormError } from "./FormError";
+import { FormSuccess } from "./FormSuccess";
 
 export const RegisterForm = () => {
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | undefined>();
+  const [success, setSuccess] = useState<string | undefined>();
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
@@ -25,10 +31,22 @@ export const RegisterForm = () => {
       password: "",
     },
   });
+
+  const onRegister = (values: z.infer<typeof RegisterSchema>) => {
+    setError("");
+    setSuccess("");
+    startTransition(() => {
+      register(values).then((data) => {
+        setError(data.error);
+        setSuccess(data.success);
+      });
+    });
+  };
+
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(() => {})}
+        onSubmit={form.handleSubmit(onRegister)}
         className="space-y-8 text-left"
       >
         <FormField
@@ -48,7 +66,6 @@ export const RegisterForm = () => {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="email"
@@ -62,7 +79,6 @@ export const RegisterForm = () => {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="password"
@@ -76,6 +92,8 @@ export const RegisterForm = () => {
             </FormItem>
           )}
         />
+        {error && <FormError message={error} />}{" "}
+        {success && <FormSuccess message={success} />}
         <Button size={"lg"} type="submit" className="w-full">
           Register
         </Button>
