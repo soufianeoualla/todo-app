@@ -24,6 +24,7 @@ export const Header = async () => {
                   <Link href={"/auth/register"}>Register</Link>
                 </Button>
               </div>
+            
             )}
             {session && (
               <form action={logout}>
