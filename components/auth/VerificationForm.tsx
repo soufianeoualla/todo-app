@@ -27,7 +27,7 @@ export const VerificationForm = ({ headerLabel }: VerificationFormProps) => {
   const router = useRouter();
 
   const onSubmit = useCallback(() => {
-    if (!token) return null;
+    if (!token) return setError('Missing Token');
     newVerification(token).then((data) => {
       setError(data.error);
       setSuccess(data.success);

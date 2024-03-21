@@ -7,6 +7,7 @@ const LoginPage = () => {
       backButtonHref="/auth/register"
       backButtonLabel="Don't have an account? Create one"
       type="login"
+      showSocial
     />
   );
 };

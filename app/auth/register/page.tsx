@@ -8,6 +8,8 @@ const RegisterPage = () => {
       backButtonHref="/auth/login"
       backButtonLabel="Already have an account? Log In"
       type='register'
+      showSocial
+
     />
   );
 };

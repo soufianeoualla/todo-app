@@ -1,5 +1,4 @@
 "use client";
-
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,61 +11,57 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
-import { LoginSchema } from "@/schemas";
+import { ResetSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
-import { login } from "@/actions/login";
 import { FormError } from "./FormError";
 import { FormSuccess } from "./FormSuccess";
-import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { resetPassword } from "@/actions/resetPassword";
+import { useRouter } from "next/navigation";
 
-export const LoginForm = () => {
+export const ResetPassword = () => {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
-  const form = useForm<z.infer<typeof LoginSchema>>({
-    resolver: zodResolver(LoginSchema),
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
+  const router = useRouter();
+
+  const form = useForm<z.infer<typeof ResetSchema>>({
+    resolver: zodResolver(ResetSchema),
     defaultValues: {
-      email: "",
       password: "",
+      confirmPassword: "",
     },
   });
 
-  const onLogin = (values: z.infer<typeof LoginSchema>) => {
-    setError("");
-    setSuccess("");
+  const onReset = (values: z.infer<typeof ResetSchema>) => {
     startTransition(() => {
-      login(values).then((data) => {
+      if (!token) return setError("Missing Token");
+      resetPassword(token, values).then((data) => {
         setError(data?.error);
-        setSuccess(data?.success);
+        setSuccess(data.success);
+  
+        if (data.success) {
+          setTimeout(() => {
+            setSuccess("Redirecting...");
+            setTimeout(() => {
+              router.push("/auth/login");
+            }, 3000); 
+          }, 2000); 
+        }
       });
     });
   };
+  
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onLogin)}
+        onSubmit={form.handleSubmit(onReset)}
         className="space-y-8 text-left"
       >
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  disabled={isPending}
-                  type="email"
-                  placeholder="mail@soufin.me"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <FormField
           control={form.control}
           name="password"
@@ -81,27 +76,37 @@ export const LoginForm = () => {
                   {...field}
                 />
               </FormControl>
-              <Button
-                size={"sm"}
-                asChild
-                variant={"link"}
-                className="px-0 font-normal"
-              >
-                <Link href={"/auth/forgot-password"}>Forgot password?</Link>
-              </Button>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm Password</FormLabel>
+              <FormControl>
+                <Input
+                  disabled={isPending}
+                  type="password"
+                  placeholder="******"
+                  {...field}
+                />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
         {error && <FormError message={error} />}{" "}
-        {success && <FormSuccess message={success} />}{" "}
+        {success && <FormSuccess message={success} />}
         <Button
           disabled={isPending}
           size={"lg"}
           type="submit"
           className="w-full"
         >
-          login
+          Change Password
         </Button>
       </form>
     </Form>

@@ -11,12 +11,15 @@ import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { SocialProviders } from "./SocialProviders";
 import Link from "next/link";
 import { RegisterForm } from "./RegisterForm";
+import { ResetPassword } from "./ResetPassword";
+import { ForgotPassword } from "./ForgotPassword";
 
 interface CardWrapperProps {
   headerLabel: string;
   backButtonLabel: string;
   backButtonHref: string;
   type: string;
+  showSocial: boolean;
 }
 
 export const CardWrapper = ({
@@ -24,6 +27,7 @@ export const CardWrapper = ({
   backButtonHref,
   backButtonLabel,
   type,
+  showSocial,
 }: CardWrapperProps) => {
   return (
     <Card className="text-center w-[400px]">
@@ -33,7 +37,15 @@ export const CardWrapper = ({
         <CardDescription>{headerLabel} </CardDescription>
       </CardHeader>
       <CardContent className=" grid gap-2">
-        {type === "login" ? <LoginForm /> : <RegisterForm />}
+        {type === "login" ? (
+          <LoginForm />
+        ) : type === "register" ? (
+          <RegisterForm />
+        ) : type === "reset" ? (
+          <ResetPassword />
+        ) : (
+          <ForgotPassword />
+        )}
         <Link
           className=" text-muted-foreground hover:text-black hover:underline "
           href={backButtonHref}
@@ -42,9 +54,11 @@ export const CardWrapper = ({
         </Link>
       </CardContent>
 
-      <CardFooter>
-        <SocialProviders />
-      </CardFooter>
+      {showSocial && (
+        <CardFooter>
+          <SocialProviders />
+        </CardFooter>
+      )}
     </Card>
   );
 };
