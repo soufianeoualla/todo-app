@@ -4,9 +4,12 @@ import { MdDelete } from "react-icons/md";
 import { getSession } from "next-auth/react";
 import { getUserTasks } from "@/data/task";
 import { useEffect, useState } from "react";
+import { Button } from "../ui/button";
+import { deleteTask } from "@/actions/deleteTask";
+import { DeleteModal } from "./modals/DeleteModal";
 export const Tasks = () => {
   const [tasks, setTasks] = useState<Array<object> | undefined | null>();
-
+  const [deleteTaskModal,setDeleteTaskModal] = useState<boolean>()
   useEffect(() => {
     const fetchTasks = async () => {
       const session = await getSession();
@@ -14,17 +17,26 @@ export const Tasks = () => {
       const userId = session?.user?.id;
       try {
         const userTasks = await getUserTasks(userId as string);
-        setTasks(userTasks?.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()));
-        console.log(userTasks)
+        setTasks(
+          userTasks?.sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          )
+        );
+        console.log(userTasks);
       } catch (error) {
         console.log(error);
       }
     };
     fetchTasks();
   }, [tasks]);
+ 
+  const onDelete = (id:number)=>{
+    deleteTask(id)
 
+  }
   return (
-    <div className="w-full grid gap-y-3 mt-10">
+    <div className="w-full grid gap-y-3 py-10">
       {tasks &&
         tasks.map((task: any) => (
           <div
@@ -37,9 +49,16 @@ export const Tasks = () => {
             </div>
 
             <div className="flex items-center gap-x-1 text-2xl">
-              <TbEdit className=" text-primary hover:text-primary/50 cursor-pointer" />
-              <MdDelete className=" text-destructive hover:text-destructive/50 cursor-pointer" />
+              <Button variant={'outline'} size={'icon'}>
+                <TbEdit className=" text-primary hover:text-primary/50 cursor-pointer h-4 w-4" />
+              </Button>
+              <Button
+              onClick={()=>onDelete(task.id)}
+               variant={'outline'} size={'icon'}>
+                <MdDelete className=" text-destructive hover:text-destructive/50 cursor-pointer h-4 w-4" />
+              </Button>
             </div>
+            
           </div>
         ))}
     </div>

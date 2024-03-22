@@ -18,6 +18,7 @@ const AddTask = () => {
     const userId = session?.user?.id;
     if (task.trim() === "") return setError("Task can't be empty");
     addTask(task, userId as string);
+    setTask('')
   };
 
 
