@@ -7,7 +7,6 @@ export const addTask = async (task: string,userId:string|undefined) => {
     data:{
         userId:userId,
         title:task,
-        createdAt:new Date(),
     }
   })
 };
