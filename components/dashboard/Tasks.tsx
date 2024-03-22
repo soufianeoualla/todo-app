@@ -6,10 +6,8 @@ import { getUserTasks } from "@/data/task";
 import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { deleteTask } from "@/actions/deleteTask";
-import { DeleteModal } from "./modals/DeleteModal";
 export const Tasks = () => {
   const [tasks, setTasks] = useState<Array<object> | undefined | null>();
-  const [deleteTaskModal,setDeleteTaskModal] = useState<boolean>()
   useEffect(() => {
     const fetchTasks = async () => {
       const session = await getSession();
