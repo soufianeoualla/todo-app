@@ -1,8 +1,13 @@
+
 import { VerificationForm } from "@/components/auth/VerificationForm"
+import { Suspense } from "react"
 
 const VerificationPage = () => {
   return (
-    <VerificationForm headerLabel={'Confirming your verification'}/>
+    <Suspense>
+
+      <VerificationForm headerLabel={'Confirming your verification'}/>
+    </Suspense>
   )
 }
 

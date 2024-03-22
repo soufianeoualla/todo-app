@@ -1,9 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
-module.exports = {
-    experimental: {
-      missingSuspenseWithCSRBailout: false,
-    },
-  }
+const nextConfig = {
+
+};
+
+  
 
 export default nextConfig;

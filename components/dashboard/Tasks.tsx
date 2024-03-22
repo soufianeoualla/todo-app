@@ -26,7 +26,7 @@ export const Tasks = () => {
       }
     };
     fetchTasks();
-  }, [tasks]);
+  }, []);
 
   const onDelete = (id: number) => {
     deleteTask(id);

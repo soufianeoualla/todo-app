@@ -6,6 +6,7 @@ import { logout } from "@/actions/logout";
 
 export const Header = async () => {
   const session = await auth();
+ ;
   return (
     <header className="">
       <div className="mx-auto flex justify-between h-24 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
@@ -24,7 +25,6 @@ export const Header = async () => {
                   <Link href={"/auth/register"}>Register</Link>
                 </Button>
               </div>
-            
             )}
             {session && (
               <form action={logout}>
