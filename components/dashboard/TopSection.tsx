@@ -20,7 +20,7 @@ export const TopSection = () => {
 
   return (
     <div className="flex justify-between items-center w-full p-8 border-2 border-slate-300 rounded-2xl mt-10">
-      {tasks && (
+      {tasks && tasks.length > 0 && (
         <>
           <div>
             <h1 className="text-2xl font-bold ">Todo Done</h1>
@@ -34,7 +34,7 @@ export const TopSection = () => {
         </>
       )}
 
-      {!tasks && (
+      {tasks && tasks.length === 0 &&(
         <h1 className="text-center font-bold text-primary">
           You don&lsquo;t have any tasks Create One
         </h1>

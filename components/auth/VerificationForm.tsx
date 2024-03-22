@@ -37,7 +37,7 @@ export const VerificationForm = ({ headerLabel }: VerificationFormProps) => {
       if (success) {
         router.push("/auth/login");
       }
-    }, 5000);
+    }, 3000);
   }, [token, success, router]);
 
   useEffect(() => {
