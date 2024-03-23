@@ -18,9 +18,8 @@ export const Tasks = () => {
 
   useEffect(() => {
     getTasks();
-  }, [getTasks]);
+  }, [getTasks,tasks]);
 
-  console.log(tasks)
 
   if (!tasks) {
     return <Loading />;
