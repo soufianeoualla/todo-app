@@ -15,7 +15,7 @@ export const resetPassword = async (token:string,values:z.infer<typeof ResetSche
 
   const existingToken = await getVerificationTokenByToken(token);
   const existingUser = await getUserByEmail(existingToken?.email as string);
-  if (!existingToken) return { error: "Missing Token" };
+  if (!existingToken) return { error: "You can't use this link anymore" };
   if (!existingUser) return { error: "Email does not exist" };
 
   const newHashedPassword = await bcrypt.hash(password, 10);

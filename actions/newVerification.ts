@@ -6,7 +6,7 @@ import { db } from "@/lib/db";
 
 export const newVerification = async (token: string) => {
   const existingToken = await getVerificationTokenByToken(token);
-  if (!existingToken) return { error: "Token does not exist" };
+  if (!existingToken) return { error: "You can't use this link anymore" };
 
   const expiredToken = new Date(existingToken.expires) < new Date();
   if (expiredToken) return { error: "Token has expired" };
@@ -22,7 +22,7 @@ export const newVerification = async (token: string) => {
       email: existingToken.email,
     },
   });
-  
+
   await db.verificationToken.delete({
     where: { id: existingToken.id },
   });

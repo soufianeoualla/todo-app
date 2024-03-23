@@ -44,8 +44,9 @@ export const VerificationForm = ({ headerLabel }: VerificationFormProps) => {
   }, [token, router]);
 
   useEffect(() => {
+    if(success) return
     onSubmit();
-  }, [onSubmit]);
+  }, [onSubmit,success]);
 
   return (
     <Card className="text-center w-[400px]">
@@ -57,7 +58,6 @@ export const VerificationForm = ({ headerLabel }: VerificationFormProps) => {
       <CardContent>
         {!error && !success && <Loading />}
         {success && <FormSuccess message={success} />}
-        {success && <p>Redirecting...</p>}
         {error && <FormError message={error} />}{" "}
       </CardContent>
     </Card>
