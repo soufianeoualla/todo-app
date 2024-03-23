@@ -25,5 +25,8 @@ export const resetPassword = async (token:string,values:z.infer<typeof ResetSche
       password: newHashedPassword,
     },
   });
+  await db.verificationToken.delete({
+    where: { id: existingToken.id },
+  });
   return {success:'Your password got changed'}
 };
