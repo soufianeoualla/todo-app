@@ -7,18 +7,17 @@ import { Input } from "../ui/input";
 import { editTask } from "@/actions/editTask";
 import { completedTask } from "@/actions/completedTask";
 import { FaCheck } from "react-icons/fa6";
+import { deleteTask } from "@/actions/deleteTask";
 
 interface SingleTaskProps {
   title: boolean;
   id: number;
-  onDelete: (id: number) => void;
   isCompleted: boolean;
 }
 
 export const SingleTask = ({
   title,
   id,
-  onDelete,
   isCompleted,
 }: SingleTaskProps) => {
   const [editModal, setEditModal] = useState<boolean>(false);
@@ -32,6 +31,9 @@ export const SingleTask = ({
 
   const onClick = () => {
     completedTask(id);
+  };
+  const onDelete = () => {
+    deleteTask(id);
   };
 
   return (
@@ -59,7 +61,7 @@ export const SingleTask = ({
               <TbEdit className=" text-primary hover:text-primary/50 cursor-pointer h-4 w-4" />
             </Button>
             <Button
-              onClick={() => onDelete(id)}
+              onClick={onDelete}
               variant={"outline"}
               size={"icon"}
             >

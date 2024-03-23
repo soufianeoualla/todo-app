@@ -1,22 +1,23 @@
 "use client";
 import { getUserTasks } from "@/data/task";
-import { getSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import Loading from "../loading";
 
 export const TopSection = () => {
   const [tasks, setTasks] = useState<Array<any> | undefined | null>();
   useEffect(() => {
     const getTasks = async () => {
-      const session = await getSession();
-      const userId = session?.user?.id;
-      const userTasks = await getUserTasks(userId as string);
+      const userTasks = await getUserTasks();
       setTasks(userTasks);
     };
     getTasks();
-  });
+  }, [tasks]);
 
   const completedTasks =
     tasks && tasks?.filter((task: any) => task.isCompleted === true);
+  if (!tasks) {
+    return <Loading />;
+  }
 
   return (
     <div className="flex justify-between items-center w-full p-8 border-2 border-slate-300 rounded-2xl mt-10">
@@ -34,7 +35,7 @@ export const TopSection = () => {
         </>
       )}
 
-      {tasks && tasks.length === 0 &&(
+      {tasks && tasks.length === 0 && (
         <h1 className="text-center font-bold text-primary">
           You don&lsquo;t have any tasks Create One
         </h1>
