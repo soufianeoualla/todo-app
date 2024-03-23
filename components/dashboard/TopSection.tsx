@@ -9,7 +9,7 @@ export const TopSection = ({
 }: TopSectionProps) => {
   return (
     <div className="flex justify-between items-center w-full p-8 border-2 border-slate-300 rounded-2xl mt-10">
-      {tasksLength && tasksLength > 0 && (
+      {(tasksLength && tasksLength > 0) && (
         <>
           <div>
             <h1 className="text-2xl font-bold ">Todo Done</h1>
