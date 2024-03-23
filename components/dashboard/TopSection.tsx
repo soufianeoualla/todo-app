@@ -1,7 +1,6 @@
 "use client";
 import { getUserTasks } from "@/data/task";
 import { useEffect, useState } from "react";
-import Loading from "../loading";
 
 export const TopSection = () => {
   const [tasks, setTasks] = useState<Array<any> | undefined | null>();
@@ -15,9 +14,7 @@ export const TopSection = () => {
 
   const completedTasks =
     tasks && tasks?.filter((task: any) => task.isCompleted === true);
-  if (!tasks) {
-    return <Loading />;
-  }
+ 
 
   return (
     <div className="flex justify-between items-center w-full p-8 border-2 border-slate-300 rounded-2xl mt-10">
