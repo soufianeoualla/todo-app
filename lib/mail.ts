@@ -20,7 +20,7 @@ export const sendVerificationEmail = async (email: string, token: string) => {
 
 
 export const sendPasswordResetEmail = async (email: string, token: string) => {
-  const confirmationLink = `${process.env.NEXT_APP_URL}/auth/reset?token=${token}`;
+  const confirmationLink = `${process.env.NEXT_PUBLIC_APP_URL}/auth/reset?token=${token}`;
 
   await resend.emails.send({
     from: "mail@soufian.me",
