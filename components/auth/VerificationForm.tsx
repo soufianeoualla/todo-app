@@ -30,16 +30,18 @@ export const VerificationForm = ({ headerLabel }: VerificationFormProps) => {
   const onSubmit = useCallback(() => {
     if (!token) return setError("Missing Token");
     newVerification(token).then((data) => {
-      setError(data.error);
+      setError(data?.error);
       setSuccess(data.success);
-    });
-
-    setTimeout(() => {
-      if (success) {
-        router.push("/auth/login");
+      if (data.success) {
+        setTimeout(() => {
+          setSuccess("Redirecting...");
+          setTimeout(() => {
+            router.push("/auth/login");
+          }, 3000);
+        }, 2000);
       }
-    }, 3000);
-  }, [token, success, router]);
+    });
+  }, [token, router]);
 
   useEffect(() => {
     onSubmit();
