@@ -1,18 +1,9 @@
-import { Header } from "@/components/Header";
-import AddTask from "@/components/dashboard/AddTask";
-import { Tasks } from "@/components/dashboard/Tasks";
-import { TopSection } from "@/components/dashboard/TopSection";
+import DashboardWrapper from "@/components/dashboard/DashboardWrapper";
 
 const DashboardPage = () => {
   return (
     <>
-      <Header />
-
-      <div className="flex justify-center flex-col items-center w-[400px] sm:w-[90%] m-auto">
-        <TopSection />
-        <AddTask />
-        <Tasks />
-      </div>
+      <DashboardWrapper />
     </>
   );
 };

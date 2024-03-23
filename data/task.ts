@@ -1,19 +1,20 @@
 // pages/api/tasks.js
-'use server'
+"use server";
 import { auth } from "@/auth";
 import { db } from "@/lib/db";
 
 export const getUserTasks = async () => {
-  const session = await auth()
-   const userId = session?.user?.id
+  const session = await auth();
+  const userId = session?.user?.id;
   try {
-    const userTasks = await db.user.findUnique({
-      where: { id: userId },
-      include:{tasks:true}
+    const userTasks = await db.task.findMany({
+      where: { userId: userId },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
-
-    return userTasks?.tasks || [];
+    return userTasks || [];
   } catch (error) {
     console.log(error);
     return null;

@@ -1,29 +1,9 @@
-"use client";
-import { getUserTasks } from "@/data/task";
 import { SingleTask } from "./SingleTask";
-import Loading from "@/components/loading";
-import { useCallback, useEffect, useState } from "react";
-export const Tasks = () => {
-  const [tasks, setTasks] = useState<Array<any> | undefined | null>();
-
-  const getTasks = useCallback(async () => {
-    const userTasks = await getUserTasks();
-    setTasks(
-      userTasks?.sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      )
-    );
-  }, []);
-
-  useEffect(() => {
-    getTasks();
-  }, [getTasks,tasks]);
-
-
-  if (!tasks) {
-    return <Loading />;
-  }
+interface TasksProps{
+  tasks: Array<object> | undefined 
+}
+export const Tasks = ({tasks}:TasksProps) => {
+  
   return (
     <div className="w-full grid gap-y-3 py-10">
       {tasks &&
