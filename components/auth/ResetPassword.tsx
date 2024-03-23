@@ -41,9 +41,9 @@ export const ResetPassword = () => {
       if (!token) return setError("Missing Token");
       resetPassword(token, values).then((data) => {
         setError(data?.error);
-        setSuccess(data.success);
+        setSuccess(data?.success);
   
-        if (data.success) {
+        if (data?.success) {
           setTimeout(() => {
             setSuccess("Redirecting...");
             setTimeout(() => {

@@ -31,8 +31,8 @@ export const VerificationForm = ({ headerLabel }: VerificationFormProps) => {
     if (!token) return setError("Missing Token");
     newVerification(token).then((data) => {
       setError(data?.error);
-      setSuccess(data.success);
-      if (data.success) {
+      setSuccess(data?.success);
+      if (data?.success) {
         setTimeout(() => {
           setSuccess("Redirecting...");
           setTimeout(() => {
