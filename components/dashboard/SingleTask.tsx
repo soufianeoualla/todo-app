@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Input } from "../ui/input";
 import { editTask } from "@/actions/editTask";
 import { completedTask } from "@/actions/completedTask";
+import { FaCheck } from "react-icons/fa6";
 
 interface SingleTaskProps {
   title: boolean;
@@ -40,10 +41,12 @@ export const SingleTask = ({
           <div className="flex items-center gap-x-2">
             <button
               onClick={onClick}
-              className={`checkbox h-6 w-6 rounded-full border-primary border-2 hover:bg-primary ${
+              className={`checkbox h-6 w-6 rounded-full border-primary border-2 hover:bg-primary flex justify-center items-center ${
                 isCompleted && "bg-primary"
               }`}
-            ></button>
+            >
+              <FaCheck className={`text-white  hover:block ${isCompleted ?'block':'hidden'}`}/>
+            </button>
             <b className="flex-1">{title}</b>
           </div>
 

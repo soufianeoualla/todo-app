@@ -14,6 +14,7 @@ import { FormSuccess } from "./FormSuccess";
 import { FormError } from "./FormError";
 import { useRouter, useSearchParams } from "next/navigation";
 import { newVerification } from "@/actions/newVerification";
+import Loading from "../loading";
 
 interface VerificationFormProps {
   headerLabel: string;
@@ -27,7 +28,7 @@ export const VerificationForm = ({ headerLabel }: VerificationFormProps) => {
   const router = useRouter();
 
   const onSubmit = useCallback(() => {
-    if (!token) return setError('Missing Token');
+    if (!token) return setError("Missing Token");
     newVerification(token).then((data) => {
       setError(data.error);
       setSuccess(data.success);
@@ -52,9 +53,9 @@ export const VerificationForm = ({ headerLabel }: VerificationFormProps) => {
         <CardDescription>{headerLabel} </CardDescription>
       </CardHeader>
       <CardContent>
-        {!error && !success && <PulseLoader color="hsl(262.1 83.3% 57.8%)" />}
+        {!error && !success && <Loading />}
         {success && <FormSuccess message={success} />}
-        {success &&  <p>Redirecting...</p> }
+        {success && <p>Redirecting...</p>}
         {error && <FormError message={error} />}{" "}
       </CardContent>
     </Card>

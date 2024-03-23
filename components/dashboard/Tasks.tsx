@@ -5,6 +5,7 @@ import { getUserTasks } from "@/data/task";
 import { useEffect, useState } from "react";
 import { deleteTask } from "@/actions/deleteTask";
 import { SingleTask } from "./SingleTask";
+import Loading from "@/components/loading";
 export const Tasks = () => {
   const [tasks, setTasks] = useState<Array<object> | undefined | null>();
   useEffect(() => {
@@ -26,11 +27,14 @@ export const Tasks = () => {
       }
     };
     fetchTasks();
-  }, []);
+  }, [tasks]);
 
   const onDelete = (id: number) => {
     deleteTask(id);
   };
+  if(!tasks){
+    return <Loading />
+  }
   return (
     <div className="w-full grid gap-y-3 py-10">
       {tasks &&
