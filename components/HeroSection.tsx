@@ -3,7 +3,7 @@ import { Button } from "./ui/button"
 
 export const HeroSection = () => {
   return (
-    <main className="h-[70vh]  flex justify-center items-center flex-col w-[50%] m-auto space-y-5 text-center ">
+    <main className="h-[70vh]  flex justify-center items-center flex-col w-[50%] m-auto space-y-5 text-center  sm:w-full sm:px-2 ">
       <div className=" space-y-2">
       <h1 className="text-5xl font-bold capitalize">
         Master Your Day with <span className=" text-primary">Tasking</span>

@@ -30,7 +30,7 @@ export const CardWrapper = ({
   showSocial,
 }: CardWrapperProps) => {
   return (
-    <Card className="text-center w-[400px]">
+    <Card className="text-center w-[400px] sm:w-[90%]">
       <CardHeader className=" space-y-3">
         <CardTitle className="text-primary text-2xl">Tasking.</CardTitle>
 

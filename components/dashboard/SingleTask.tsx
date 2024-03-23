@@ -35,7 +35,7 @@ export const SingleTask = ({
   };
 
   return (
-    <div className="w-[400px]">
+    <div className="w-full">
       {!editModal && (
         <div className="flex cursor-pointer justify-between items-center gap-3 p-4 border-slate-300 border rounded-xl">
           <div className="flex items-center gap-x-2">

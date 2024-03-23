@@ -8,7 +8,7 @@ const DashboardPage = () => {
     <>
       <Header />
 
-      <div className="flex justify-center flex-col items-center w-[400px] m-auto">
+      <div className="flex justify-center flex-col items-center w-[400px] sm:w-[90%] m-auto">
         <TopSection />
         <AddTask />
         <Tasks />

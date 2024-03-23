@@ -9,8 +9,8 @@ export const Header = async () => {
  ;
   return (
     <header className="">
-      <div className="mx-auto flex justify-between h-24 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-        <Link className=" text-primary text-4xl font-bold" href="/">
+      <div className="mx-auto flex justify-between h-24 max-w-screen-xl items-center gap-8 px-4 ">
+        <Link className=" text-primary text-4xl font-bold sm:text-3xl" href="/">
           Tasking.
         </Link>
 
@@ -18,10 +18,10 @@ export const Header = async () => {
           <div className="flex items-center gap-4">
             {!session && (
               <div className="sm:flex sm:gap-4">
-                <Button asChild size={"lg"}>
+                <Button className="sm:w-10" asChild size={"lg"}>
                   <Link href={"/auth/login"}>Login</Link>
                 </Button>
-                <Button asChild size={"lg"} variant={"link"}>
+                <Button className="sm:w-10" asChild size={"lg"} variant={"link"}>
                   <Link href={"/auth/register"}>Register</Link>
                 </Button>
               </div>
